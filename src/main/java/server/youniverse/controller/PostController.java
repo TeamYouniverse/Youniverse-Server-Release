@@ -1,4 +1,4 @@
 package server.youniverse.controller;
 
-public class MemberController {
+public class PostController {
 }

@@ -1,4 +1,4 @@
 package server.youniverse.repository;
 
-public class MemberRepository {
+public class PostRepository {
 }

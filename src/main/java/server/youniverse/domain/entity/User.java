@@ -21,11 +21,7 @@ public class User {
     @Column(name = "member_id")
     private int id;
 
-    @Column(unique = true)
-    @NotNull
     private String name;
-
-    @NotNull
     private String password;
 
     @OneToMany

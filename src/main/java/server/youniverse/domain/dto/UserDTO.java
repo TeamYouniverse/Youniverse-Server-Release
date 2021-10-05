@@ -1,16 +1,10 @@
 package server.youniverse.domain.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import server.youniverse.domain.entity.User;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class UserDTO {
-    private int seq;
     private String name;
     private String password;
 }

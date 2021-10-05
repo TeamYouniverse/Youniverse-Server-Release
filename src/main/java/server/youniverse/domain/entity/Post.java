@@ -10,11 +10,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import server.youniverse.domain.entity.Planet;
 
 @Entity
 //@Table(name="Boards")
 @Getter
+@EntityListeners(AuditingEntityListener.class)
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +25,8 @@ public class Post {
 
     private String nickname;
     private String contents;
+
+    @Enumerated(EnumType.STRING)
     private Planet emotion;
     private boolean active;
 
@@ -30,14 +34,6 @@ public class Post {
     private LocalDateTime createdDate;
     @LastModifiedDate
     private LocalDateTime updatedDate;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
 
     public Post() {
 
@@ -47,6 +43,5 @@ public class Post {
         this.contents=contents;
         this.emotion=emotion;
         this.active=true;
-        this.createdDate= LocalDateTime.now();
     }
 }

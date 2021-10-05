@@ -1,8 +1,8 @@
 package server.youniverse.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import server.youniverse.domain.entity.User;
-import org.springframework.data.repository.CrudRepository;
 
-public interface UserRepository extends CrudRepository<User,Long>{
+public interface UserRepository extends JpaRepository<User,Long> {
     User findByName(String name);
 }

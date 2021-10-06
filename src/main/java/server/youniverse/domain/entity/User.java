@@ -29,14 +29,8 @@ public class User {
     @OneToMany
     private List<Post> posts;
 
-    public User(@NotBlank String name, @NotBlank String password) {
+    public User(String name, String password) {
         this.name = name;
         this.password = password;
-    }
-
-    public User(@NotBlank String name, @NotBlank String password,List <Post> posts) {
-        this.name = name;
-        this.password = password;
-        this.posts=posts;
     }
 }

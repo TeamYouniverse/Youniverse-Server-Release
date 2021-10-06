@@ -19,6 +19,7 @@ import server.youniverse.domain.entity.Planet;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Post extends BaseEntity{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="post_id")
@@ -32,7 +33,7 @@ public class Post extends BaseEntity{
 
     private boolean active;
 
-    public Post(@NotBlank String nickname,@NotBlank String contents, @NotBlank Planet emotion){
+    public Post(String nickname, String contents, Planet emotion){
         this.nickname=nickname;
         this.contents=contents;
         this.emotion=emotion;

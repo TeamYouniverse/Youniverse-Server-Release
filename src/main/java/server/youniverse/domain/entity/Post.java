@@ -2,8 +2,9 @@ package server.youniverse.domain.entity;
 
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
@@ -14,8 +15,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import server.youniverse.domain.entity.Planet;
 
 @Entity
-//@Table(name="Boards")
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 public class Post {
     @Id
@@ -35,13 +37,4 @@ public class Post {
     @LastModifiedDate
     private LocalDateTime updatedDate;
 
-    public Post() {
-
-    }
-    public Post(@NotBlank String nickname,@NotBlank String contents, @NotBlank Planet emotion){
-        this.nickname=nickname;
-        this.contents=contents;
-        this.emotion=emotion;
-        this.active=true;
-    }
 }

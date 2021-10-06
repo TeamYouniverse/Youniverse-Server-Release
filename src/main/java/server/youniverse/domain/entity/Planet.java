@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public enum Planet {
-    HAPPY("행복"),
-    SAD("서운"),
-    SORRY("미안"),
-    TOUCHING("감동");
+    happy("행복"),
+    sad("서운"),
+    sorry("미안"),
+    touching("감동");
 
     private final String emotion;
 }

@@ -1,24 +1,23 @@
 package server.youniverse.domain.entity;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
+import lombok.NoArgsConstructor;
 import server.youniverse.domain.entity.Post;
 
 import java.util.List;
 
 @Entity
-//@Table(name="Members")
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_id")
+    @Column(name = "user_id")
     private int id;
 
     private String name;
@@ -27,17 +26,4 @@ public class User {
     @OneToMany
     private List<Post> posts;
 
-    public User() {
-    }
-
-    public User(@NotBlank String name, @NotBlank String password) {
-        this.name = name;
-        this.password = password;
-    }
-
-    public User(@NotBlank String name, @NotBlank String password,List <Post> posts) {
-        this.name = name;
-        this.password = password;
-        this.posts=posts;
-    }
 }

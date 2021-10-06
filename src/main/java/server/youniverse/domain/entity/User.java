@@ -1,19 +1,21 @@
 package server.youniverse.domain.entity;
 
 
+import lombok.AccessLevel;
 import lombok.Getter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import lombok.NoArgsConstructor;
 import server.youniverse.domain.entity.Post;
 
 import java.util.List;
 
 @Entity
-//@Table(name="Members")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
     @Id
@@ -26,9 +28,6 @@ public class User {
 
     @OneToMany
     private List<Post> posts;
-
-    public User() {
-    }
 
     public User(@NotBlank String name, @NotBlank String password) {
         this.name = name;

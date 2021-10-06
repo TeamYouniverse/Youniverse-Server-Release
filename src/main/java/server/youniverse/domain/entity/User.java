@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import lombok.NoArgsConstructor;
 import server.youniverse.domain.entity.Post;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,8 +27,8 @@ public class User {
     private String name;
     private String password;
 
-    @OneToMany
-    private List<Post> posts;
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts = new ArrayList<>();
 
     public User(String name, String password) {
         this.name = name;

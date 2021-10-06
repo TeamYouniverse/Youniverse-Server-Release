@@ -25,6 +25,10 @@ public class Post extends BaseEntity{
     @Column(name="post_id")
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     private String nickname;
     private String contents;
 

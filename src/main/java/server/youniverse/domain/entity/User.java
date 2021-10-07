@@ -3,7 +3,6 @@ package server.youniverse.domain.entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

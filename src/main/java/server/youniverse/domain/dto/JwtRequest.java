@@ -1,9 +1,7 @@
 package server.youniverse.domain.dto;
 
 import lombok.*;
-
 import java.io.Serializable;
-
 
 @Data
 @NoArgsConstructor

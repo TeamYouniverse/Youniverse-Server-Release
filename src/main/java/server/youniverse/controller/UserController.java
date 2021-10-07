@@ -1,47 +1,32 @@
-//package server.youniverse.controller;
-//
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.*;
-//import server.youniverse.domain.entity.User;
-//
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
-//import java.util.Map;
-//
-//@RestController
-//@CrossOrigin("*")
-//public class UserController {
-//    @Autowired
-//    JwtServiceImpl jwtService;
-//
-//    @GetMapping("/getUser")//토큰 담겨있는 사용자 정보를 리턴, 토큰이 필요한 경로. 관리자페이지때 사용(추후 수정)
-//    public ResponseEntity<Object> getUser(HttpServletRequest request) {
-//        try {
-//            String token = request.getHeader("jwt-auth-token");
-//            Map<String, Object> tokenInfoMap = jwtService.getInfo(token);
-//
-//            User user = new ObjectMapper().convertValue(tokenInfoMap.get("user"), User.class);
-//
-//            return new ResponseEntity<Object>(user, HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
-//        }
-//    }
-//
-//    @PostMapping("/login") //토큰 필요 없는 경로
-//    public ResponseEntity<Object> login(@RequestBody User user, HttpServletResponse response) {
-//        try {
-//            User registeredUser = new User(); //DB에서 사용자 정보 가져오기 (추후 수정)
-//            if (registeredUser.getId().equals(user.getId()) && registeredUser.getPassword().equals(user.getPassword())) {
-//                String token = jwtService.createToken(user);
-//                response.setHeader("jwt-auth-token", token);
-//                return new ResponseEntity<Object>("login Success", HttpStatus.OK);
-//            }
-//        } catch (Exception e) {
-//            return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
-//        }
-//    }
-//}
+package server.youniverse.controller;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import server.youniverse.domain.dto.Response;
+import server.youniverse.domain.dto.UserDto;
+import server.youniverse.service.jwt.JwtUserDetailsService;
+
+@RestController
+@RequiredArgsConstructor
+public class UserController {
+    private final JwtUserDetailsService userService;
+
+    @PostMapping("/signup")
+    public Response signup(@RequestBody UserDto userDto){
+        //회원 추가
+        Response response=new Response();
+        try{
+            userService.save(userDto);
+            response.setResponse("success");
+            response.setMessage("회원가입을 성공적으로 완료했습니다.");
+        }catch (Exception e){
+            response.setResponse("failed");
+            response.setMessage("회원가입을 하는 도중 오류가 발생했습니다.");
+            response.setData(e.toString());//errorMessage
+        }
+        return response;
+    }
+
+}

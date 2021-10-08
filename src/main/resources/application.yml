@@ -1,9 +1,0 @@
-spring:
-  jwt:
-    secret: lemorninglemorninglemorninglemorninglemorninglemorninglemorninglemorninglemorninglemorning
-  datasource:
-    url: youniverse-db.cjdahmv8rf4l.ap-northeast-2.rds.amazonaws.com
-    port: 3306
-    id: root
-    password: youniverse
-    #driver-class-name: org.h2.Drive

@@ -1,14 +1,19 @@
-package server.youniverse.controller.dto;
+package server.youniverse.common.dto;
 
-import lombok.*;
-import server.youniverse.expection.ErrorCode;
-import server.youniverse.expection.ErrorStatusCode;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import server.youniverse.common.exception.ErrorCode;
+import server.youniverse.common.exception.ErrorStatusCode;
 
 @ToString
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ApiResponse<T> {
+
     public static final ApiResponse<String> SUCCESS = success("OK");
 
     private ErrorStatusCode resultCode;

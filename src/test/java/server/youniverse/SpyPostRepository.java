@@ -4,6 +4,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import server.youniverse.domain.entity.Planet;
 import server.youniverse.domain.entity.Post;
 import server.youniverse.repository.PostRepository;
 
@@ -152,5 +153,15 @@ public class SpyPostRepository implements PostRepository {
     @Override
     public <S extends Post> boolean exists(Example<S> example) {
         return false;
+    }
+
+    @Override
+    public List<Post> findTop10ByMemberIdAndEmotionOrderByCreatedDateDesc(Long memberId, Planet emotion) {
+        return null;
+    }
+
+    @Override
+    public Long countByMemberIdAndEmotion(Long memberId, Planet emotion) {
+        return null;
     }
 }

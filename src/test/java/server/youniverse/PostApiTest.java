@@ -13,6 +13,7 @@ import server.youniverse.domain.entity.Post;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -57,5 +58,13 @@ class PostApiTest {
                 .andExpect(jsonPath("$.postId", equalTo(null)))
                 .andExpect(jsonPath("$.nickname", equalTo("pine")));
     }
-    
+
+    @Test
+    void getRecentPosts_returnsOkHttpStatus() throws Exception {
+        mockMvc.perform(get("/api/v1/posts")
+                        .header("AUTH_TOKEN", "givenToken")
+                        .param("emotion", "HAPPY"))
+                .andExpect(status().isOk());
+    }
+
 }

@@ -4,10 +4,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import server.youniverse.controller.dto.PostCreateRequest;
 import server.youniverse.controller.dto.PostCreateResponse;
+import server.youniverse.controller.dto.PostDto;
+import server.youniverse.controller.dto.PostGetResponse;
+import server.youniverse.domain.entity.Planet;
 import server.youniverse.domain.entity.Post;
 import server.youniverse.repository.PostRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,5 +26,12 @@ public class PostServiceImpl implements PostService {
         Post post = new Post(memberId, request.getNickname(), request.getContent(), request.getPlanet());
         postRepository.save(post);
         return PostCreateResponse.of(post);
+    }
+
+    @Override
+    public PostGetResponse getRecentPosts(Long memberId, Planet emotion) {
+        Long postCount = postRepository.countByMemberIdAndEmotion(memberId, emotion);
+        List<Post> posts = postRepository.findTop10ByMemberIdAndEmotionOrderByCreatedDateDesc(memberId, emotion);
+        return new PostGetResponse(postCount, posts.stream().map(PostDto::of).collect(Collectors.toList()));
     }
 }

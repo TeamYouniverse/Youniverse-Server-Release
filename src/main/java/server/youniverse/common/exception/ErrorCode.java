@@ -19,8 +19,8 @@ public enum ErrorCode {
     VALIDATION_WRONG_TYPE_EXCEPTION(BAD_REQUEST, "잘못된 타입이 입력되었습니다."),
     VALIDATION_SOCIAL_TYPE_EXCEPTION(BAD_REQUEST, "잘못된 소셜 프로바이더 입니다."),
 
-    ALREADY_MEMBER_EXCEPTION(BAD_REQUEST,"이미 존재하는 회원입니다."),
-    NONEXISTENT_MEMBER_EXCEPTION(BAD_REQUEST,"존재하지 않는 회원입니다."),
+    ALREADY_MEMBER_EXCEPTION(BAD_REQUEST, "이미 존재하는 회원입니다."),
+    NONEXISTENT_MEMBER_EXCEPTION(BAD_REQUEST, "존재하지 않는 회원입니다."),
 
     // 401 UnAuthorized
     UNAUTHORIZED_EXCEPTION(ErrorStatusCode.UNAUTHORIZED, "세션이 만료되었습니다. 다시 로그인 해주세요"),

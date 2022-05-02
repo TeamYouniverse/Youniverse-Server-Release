@@ -26,4 +26,9 @@ public class SpyPostService implements PostService {
     public PostGetResponse getPostsByEmotion(Long memberId, Planet emotion, Pageable pageable) {
         return null;
     }
+
+    @Override
+    public void deletePost(Long memberId, Long postId) {
+
+    }
 }

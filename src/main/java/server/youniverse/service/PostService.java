@@ -12,4 +12,6 @@ public interface PostService {
     PostGetResponse getRecentPosts(Long memberId, Planet emotion);
 
     PostGetResponse getPostsByEmotion(Long memberId, Planet emotion, Pageable pageable);
+
+    void deletePost(Long memberId, Long postId);
 }

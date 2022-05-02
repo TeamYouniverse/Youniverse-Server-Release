@@ -1,6 +1,8 @@
 package server.youniverse.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import server.youniverse.controller.dto.PostCreateRequest;
 import server.youniverse.controller.dto.PostCreateResponse;
@@ -18,7 +20,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional
 public class PostServiceImpl implements PostService {
-
     private final PostRepository postRepository;
 
     @Override
@@ -32,6 +33,14 @@ public class PostServiceImpl implements PostService {
     public PostGetResponse getRecentPosts(Long memberId, Planet emotion) {
         Long postCount = postRepository.countByMemberIdAndEmotion(memberId, emotion);
         List<Post> posts = postRepository.findTop10ByMemberIdAndEmotionOrderByCreatedDateDesc(memberId, emotion);
+        return new PostGetResponse(postCount, posts.stream().map(PostDto::of).collect(Collectors.toList()));
+    }
+
+    @Override
+    public PostGetResponse getPostsByEmotion(Long memberId, Planet emotion, Pageable pageable) {
+        Long postCount = postRepository.countByMemberIdAndEmotion(memberId, emotion);
+        Page<Post> posts = postRepository.findByMemberIdAndEmotionOrderByCreatedDateDesc(memberId, emotion, pageable);
+
         return new PostGetResponse(postCount, posts.stream().map(PostDto::of).collect(Collectors.toList()));
     }
 }

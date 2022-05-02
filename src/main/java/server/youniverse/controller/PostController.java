@@ -1,12 +1,16 @@
 package server.youniverse.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.validation.BindingResult;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import server.youniverse.controller.dto.PostCreateRequest;
 import server.youniverse.controller.dto.PostCreateResponse;
+import server.youniverse.controller.dto.PostGetResponse;
+import server.youniverse.domain.entity.Planet;
 import server.youniverse.service.PostService;
 
 import javax.validation.Valid;
@@ -23,9 +27,17 @@ public class PostController {
         return postService.createPost(memberId, request);
     }
 
-    //get /?emotion=happy //(특정 행성의 최신 글 10개, 글 전체 개수 불러오기)
+    @GetMapping("/api/v1/posts")
+    public PostGetResponse getRecentPosts(@RequestParam Planet emotion) {
+        Long memberId = 1L;
+        return postService.getRecentPosts(memberId, emotion);
+    }
 
-    //GET /?emotion=happy&page=<>&offset=<>  별자리 클릭 && 관리자 페이지 무한스크롤
+    @GetMapping("/api/v1/posts/all")
+    public PostGetResponse getPostsByEmotion(@RequestParam Planet emotion, Pageable pageable) {
+        Long memberId = 1L;
+        return postService.getPostsByEmotion(memberId, emotion, pageable);
+    }
 
     //DELETE  /?id=  글 삭제
 

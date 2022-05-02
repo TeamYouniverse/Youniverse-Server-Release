@@ -1,5 +1,6 @@
 package server.youniverse;
 
+import org.springframework.data.domain.Pageable;
 import server.youniverse.controller.dto.PostCreateRequest;
 import server.youniverse.controller.dto.PostCreateResponse;
 import server.youniverse.controller.dto.PostGetResponse;
@@ -18,6 +19,11 @@ public class SpyPostService implements PostService {
 
     @Override
     public PostGetResponse getRecentPosts(Long memberId, Planet emotion) {
+        return null;
+    }
+
+    @Override
+    public PostGetResponse getPostsByEmotion(Long memberId, Planet emotion, Pageable pageable) {
         return null;
     }
 }

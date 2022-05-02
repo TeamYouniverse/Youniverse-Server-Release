@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-import server.youniverse.common.ErrorCode;
+import server.youniverse.common.exception.ErrorCode;
 import server.youniverse.controller.dto.*;
 import server.youniverse.domain.entity.Member;
 import server.youniverse.domain.entity.RefreshToken;
@@ -17,7 +17,7 @@ import server.youniverse.repository.MemberRepository;
 import server.youniverse.repository.RefreshTokenRepository;
 import server.youniverse.jwt.TokenProvider;
 
-import static server.youniverse.common.ErrorCode.ALREADY_MEMBER_EXCEPTION;
+import static server.youniverse.common.exception.ErrorCode.ALREADY_MEMBER_EXCEPTION;
 
 @Service
 @RequiredArgsConstructor
@@ -72,7 +72,7 @@ public class AuthService {
     public AuthDto reissue(TokenRequestDto tokenRequestDto) {
         // 1. Refresh Token 검증
         if (!tokenProvider.validateToken(tokenRequestDto.getRefreshToken())) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, ErrorCode.INVALID_TOKEN.getMessage());
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, ErrorCode.VALIDATION_AUTH_TOKEN_EXCEPTION.getMessage());
         }
 
         // 2. Access Token 에서 Member ID 가져오기
@@ -80,11 +80,11 @@ public class AuthService {
 
         // 3. 저장소에서 Member ID 를 기반으로 Refresh Token 값 가져옴
         RefreshToken refreshToken = refreshTokenRepository.findByKey(authentication.getName())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, ErrorCode.INVALID_TOKEN.getMessage()));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, ErrorCode.VALIDATION_AUTH_TOKEN_EXCEPTION.getMessage()));
 
         // 4. Refresh Token 일치하는지 검사
         if (!refreshToken.getValue().equals(tokenRequestDto.getRefreshToken())) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, ErrorCode.INVALID_TOKEN.getMessage());
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, ErrorCode.VALIDATION_AUTH_TOKEN_EXCEPTION.getMessage());
         }
 
         // 5. 새로운 토큰 생성
@@ -103,4 +103,7 @@ public class AuthService {
         // 토큰 발급
         return authDto;
     }
+
+    //token to memberId
+    //token이 유효하다면 memberId를 가져온다
 }

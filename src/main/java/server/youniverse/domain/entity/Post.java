@@ -21,16 +21,17 @@ public class Post extends BaseEntity {
     private Long memberId;
 
     private String nickname;
-    private String contents;
+    private String content;
 
     @Enumerated(EnumType.STRING)
     private Planet emotion;
 
     private boolean active;
 
-    public Post(String nickname, String contents, Planet emotion) {
+    public Post(Long memberId, String nickname, String content, Planet emotion) {
+        this.memberId = memberId;
         this.nickname = nickname;
-        this.contents = contents;
+        this.content = content;
         this.emotion = emotion;
         this.active = true;
     }

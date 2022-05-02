@@ -25,9 +25,6 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
-    @OneToMany(mappedBy = "member")
-    private List<Post> posts = new ArrayList<>();
-
     @Builder
     public Member(String name, String password, Authority authority) {
         this.name = name;

@@ -10,9 +10,8 @@ import server.youniverse.controller.dto.*;
 import server.youniverse.service.AuthService;
 
 
-
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;

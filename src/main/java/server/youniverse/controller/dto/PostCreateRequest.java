@@ -12,14 +12,14 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PostCreateRequest {
     @NotNull
-    private Planet planet;
+    private Planet emotion;
     @NotNull
     private String nickname;
     @NotNull
     private String content;
 
-    public PostCreateRequest(Planet planet, String nickname, String content) {
-        this.planet = planet;
+    public PostCreateRequest(Planet emotion, String nickname, String content) {
+        this.emotion = emotion;
         this.nickname = nickname;
         this.content = content;
     }

@@ -28,7 +28,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostCreateResponse createPost(Long memberId, PostCreateRequest request) {
-        Post post = new Post(memberId, request.getNickname(), request.getContent(), request.getPlanet());
+        Post post = new Post(memberId, request.getNickname(), request.getContent(), request.getEmotion());
         postRepository.save(post);
         return PostCreateResponse.of(post);
     }
@@ -38,6 +38,7 @@ public class PostServiceImpl implements PostService {
     public PostGetResponse getRecentPosts(Long memberId, Planet emotion) {
         Long postCount = postRepository.countByMemberIdAndEmotion(memberId, emotion);
         List<Post> posts = postRepository.findTop10ByMemberIdAndEmotionOrderByCreatedDateDesc(memberId, emotion);
+
         return new PostGetResponse(postCount, posts.stream().map(PostDto::of).collect(Collectors.toList()));
     }
 
@@ -45,9 +46,9 @@ public class PostServiceImpl implements PostService {
     @Transactional(readOnly = true)
     public PostGetResponse getPostsByEmotion(Long memberId, Planet emotion, Pageable pageable) {
         Long postCount = postRepository.countByMemberIdAndEmotion(memberId, emotion);
-        Page<Post> posts = postRepository.findByMemberIdAndEmotionOrderByCreatedDateDesc(memberId, emotion, pageable);
+        Page<PostDto> posts = postRepository.findByMemberIdAndEmotionOrderByCreatedDateDesc(memberId, emotion, pageable).map(PostDto::of);
 
-        return new PostGetResponse(postCount, posts.stream().map(PostDto::of).collect(Collectors.toList()));
+        return new PostGetResponse(postCount, posts.getContent());
     }
 
     @Override

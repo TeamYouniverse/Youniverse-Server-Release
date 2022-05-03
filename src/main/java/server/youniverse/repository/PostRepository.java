@@ -9,9 +9,9 @@ import server.youniverse.domain.entity.Post;
 import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
-    List<Post> findTop10ByMemberIdAndEmotionOrderByCreatedDateDesc(Long memberId, Planet emotion);
+    List<Post> findTop10ByMemberIdAndEmotionAndActiveTrueOrderByCreatedDateDesc(Long memberId, Planet emotion);
 
-    Page<Post> findByMemberIdAndEmotionOrderByCreatedDateDesc(Long memberId, Planet emotion, Pageable pageable);
+    Page<Post> findByMemberIdAndEmotionAndActiveTrueOrderByCreatedDateDesc(Long memberId, Planet emotion, Pageable pageable);
 
     Long countByMemberIdAndEmotion(Long memberId, Planet emotion);
 }

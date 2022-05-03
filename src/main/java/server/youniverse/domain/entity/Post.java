@@ -40,4 +40,8 @@ public class Post extends BaseEntity {
         this.emotion = emotion;
         this.active = true;
     }
+
+    public void deactivate() {
+        this.active = false;
+    }
 }

@@ -156,12 +156,12 @@ public class SpyPostRepository implements PostRepository {
     }
 
     @Override
-    public List<Post> findTop10ByMemberIdAndEmotionOrderByCreatedDateDesc(Long memberId, Planet emotion) {
+    public List<Post> findTop10ByMemberIdAndEmotionAndActiveTrueOrderByCreatedDateDesc(Long memberId, Planet emotion) {
         return null;
     }
 
     @Override
-    public Page<Post> findByMemberIdAndEmotionOrderByCreatedDateDesc(Long memberId, Planet emotion, Pageable pageable) {
+    public Page<Post> findByMemberIdAndEmotionAndActiveTrueOrderByCreatedDateDesc(Long memberId, Planet emotion, Pageable pageable) {
         return null;
     }
 

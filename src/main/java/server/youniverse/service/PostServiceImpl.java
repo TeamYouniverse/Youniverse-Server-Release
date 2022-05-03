@@ -37,7 +37,7 @@ public class PostServiceImpl implements PostService {
     @Transactional(readOnly = true)
     public PostGetResponse getRecentPosts(Long memberId, Planet emotion) {
         Long postCount = postRepository.countByMemberIdAndEmotion(memberId, emotion);
-        List<Post> posts = postRepository.findTop10ByMemberIdAndEmotionOrderByCreatedDateDesc(memberId, emotion);
+        List<Post> posts = postRepository.findTop10ByMemberIdAndEmotionAndActiveTrueOrderByCreatedDateDesc(memberId, emotion);
 
         return new PostGetResponse(postCount, posts.stream().map(PostDto::of).collect(Collectors.toList()));
     }
@@ -45,16 +45,15 @@ public class PostServiceImpl implements PostService {
     @Override
     @Transactional(readOnly = true)
     public PostGetResponse getPostsByEmotion(Long memberId, Planet emotion, Pageable pageable) {
-        Long postCount = postRepository.countByMemberIdAndEmotion(memberId, emotion);
-        Page<PostDto> posts = postRepository.findByMemberIdAndEmotionOrderByCreatedDateDesc(memberId, emotion, pageable).map(PostDto::of);
+        Page<PostDto> posts = postRepository.findByMemberIdAndEmotionAndActiveTrueOrderByCreatedDateDesc(memberId, emotion, pageable).map(PostDto::of);
 
-        return new PostGetResponse(postCount, posts.getContent());
+        return new PostGetResponse(posts.getTotalElements(), posts.getContent());
     }
 
     @Override
     public void deletePost(Long memberId, Long postId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException(String.format("글 id (%s)가 존재하지 않습니다.", postId), NOT_FOUND_EXCEPTION));
-        postRepository.delete(post);
+        post.deactivate();
     }
 }

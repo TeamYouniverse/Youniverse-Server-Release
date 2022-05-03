@@ -17,6 +17,16 @@ spring:
         #       show_sql: true #sout으로 출력(쓰면 안됨)
         format_sql: true
 
+springdoc:
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  swagger-ui:
+    path: /swagger-ui.html
+    disable-swagger-default-url: true
+    display-query-params-without-oauth2: true
+
 logging.level:
   org.hibernate.SQL: debug #sql이 다 출력. 로그로.
+jwt:
+  secret: youniverseyouniverseyouniverseryouniverser1235
 #    org.hibernate.type: trace

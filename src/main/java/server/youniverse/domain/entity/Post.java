@@ -1,46 +1,43 @@
 package server.youniverse.domain.entity;
 
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
-
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import server.youniverse.domain.entity.Planet;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Post extends BaseEntity{
+public class Post extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="post_id")
+    @Column(name = "post_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(nullable = false)
+    private Long memberId;
 
     private String nickname;
-    private String contents;
+    private String content;
 
     @Enumerated(EnumType.STRING)
     private Planet emotion;
 
     private boolean active;
 
-    public Post(String nickname, String contents, Planet emotion){
-        this.nickname=nickname;
-        this.contents=contents;
-        this.emotion=emotion;
-        this.active=true;
+    public Post(Long memberId, String nickname, String content, Planet emotion) {
+        this.memberId = memberId;
+        this.nickname = nickname;
+        this.content = content;
+        this.emotion = emotion;
+        this.active = true;
     }
 }

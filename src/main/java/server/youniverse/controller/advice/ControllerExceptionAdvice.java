@@ -127,7 +127,7 @@ public class ControllerExceptionAdvice {
     }
 
     /**
-     * BeMyPlan Custom Exception
+     * Youniverse Custom Exception
      */
     @ExceptionHandler(YouniverseException.class)
     protected ResponseEntity<ApiResponse<Object>> handleBaseException(YouniverseException exception) {

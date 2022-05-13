@@ -1,5 +1,6 @@
 package server.youniverse.controller.auth;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,11 +20,13 @@ public class AuthController {
 
     private final AuthService authService;
 
+    @ApiOperation(value = "회원가입")
     @PostMapping("/v1/auth/signup")
     public ApiResponse<JwtValueDto> signup(@RequestBody @Valid SignUpRequest request) {
         return ApiResponse.success(authService.signup(request.toServiceDto()));
     }
 
+    @ApiOperation(value = "로그인")
     @PostMapping("/v1/auth/login")
     public ApiResponse<JwtValueDto> login(@RequestBody @Valid LoginRequest request) {
         return ApiResponse.success(authService.login(request.toServiceDto()));

@@ -49,6 +49,10 @@ public class Post extends AuditingTimeEntity {
         this.status = status;
     }
 
+    public void deactivate(){
+        this.status = PostStatus.DELETED;
+    }
+
     public static Post of(Long memberId, String author, String content, Emotion emotion) {
         return Post.builder()
                 .memberId(memberId)

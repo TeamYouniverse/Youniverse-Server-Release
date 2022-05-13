@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import server.youniverse.common.exception.ErrorCode;
 import server.youniverse.common.exception.model.NotFoundException;
 import server.youniverse.common.exception.model.UnAuthorizedException;
 import server.youniverse.controller.post.dto.request.RetrievePostByUsernameRequest;
@@ -17,7 +16,6 @@ import server.youniverse.domain.post.PostRepository;
 import server.youniverse.service.post.dto.request.CreatePostRequestDto;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static server.youniverse.common.exception.ErrorCode.*;
@@ -38,7 +36,7 @@ public class PostService {
     public List<PostDetailResponse> getPostsByUsername(RetrievePostByUsernameRequest request, Pageable pageable) {
         Member member = memberRepository.findByNickname(request.getNickname());
 
-        return postRepository.findByMemberId(member.getId(), pageable)
+        return postRepository.findByMemberIdAndStatusActive(member.getId(), pageable)
                 .stream()
                 .map(post -> PostDetailResponse.of(post))
                 .collect(Collectors.toList());
@@ -51,6 +49,8 @@ public class PostService {
         if (member.getId() != memberId) {
             throw new UnAuthorizedException(String.format("접근할 수 없는 유저 (%s - %s) 의 요청입니다.", member.getId(), memberId));
         }
-        postRepository.deleteById(postId);
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new NotFoundException(String.format("글 id (%s)가 존재하지 않습니다.", postId), NOT_FOUND_EXCEPTION));
+        post.deactivate();
     }
 }
